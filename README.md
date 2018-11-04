@@ -87,10 +87,9 @@ const MyForm = () => {
 
 ## Examples
 
-### [Simple Example](https://codesandbox.io/s/ww40y2m595)
+### [Simple Example](https://codesandbox.io/s/r4j042m694)
 
-Uses the built-in React inputs: `input`, `select`, and `textarea` to build a
-form with no validation.
+Shows how to create fields and attach them to `<input/>` elements.
 
 ## API
 
