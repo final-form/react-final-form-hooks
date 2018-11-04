@@ -5,11 +5,9 @@ const concurrent = npsUtils.concurrent
 const rimraf = npsUtils.rimraf
 module.exports = {
   scripts: {
-    test: {
-      size: {
-        description: 'check the size of the bundle',
-        script: 'bundlesize'
-      }
+    size: {
+      description: 'check the size of the bundle',
+      script: 'bundlesize'
     },
     build: {
       description: 'delete the dist directory and run all builds',
@@ -40,7 +38,7 @@ module.exports = {
           script: 'rollup --config --sourcemap --environment FORMAT:umd'
         }
       },
-      andTest: series.nps('build', 'test.size')
+      andTest: series.nps('build', 'size')
     },
     docs: {
       description: 'Generates table of contents in README',
