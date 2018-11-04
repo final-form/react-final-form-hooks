@@ -83,6 +83,15 @@ const MyForm = () => {
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+- [Examples](#examples)
+  - [Simple Example](#simple-example)
+- [API](#api)
+  - [`useField`](#usefield)
+  - [`useForm`](#useform)
+- [Contributors](#contributors)
+- [Backers](#backers)
+- [Sponsors](#sponsors)
+
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Examples
