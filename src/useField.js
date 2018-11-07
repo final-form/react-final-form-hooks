@@ -19,8 +19,7 @@ const useField = (name, form, subscription) => {
       name,
       value: value || '',
       onBlur: () => state.blur(),
-      onChange: event =>
-        state.change(event.target ? event.target.value : event),
+      onChange: event => state.change(event.target.value),
       onFocus: () => state.focus()
     },
     meta
