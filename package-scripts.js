@@ -3,6 +3,7 @@ const npsUtils = require('nps-utils')
 const series = npsUtils.series
 const concurrent = npsUtils.concurrent
 const rimraf = npsUtils.rimraf
+
 module.exports = {
   scripts: {
     size: {
@@ -17,7 +18,8 @@ module.exports = {
           'build.es',
           'build.cjs',
           'build.umd.main',
-          'build.umd.min'
+          'build.umd.min',
+          'copyTypes'
         )
       ),
       es: {
@@ -40,6 +42,7 @@ module.exports = {
       },
       andTest: series.nps('build', 'size')
     },
+    copyTypes: series(npsUtils.copy('src/*.d.ts dist')),
     docs: {
       description: 'Generates table of contents in README',
       script: 'doctoc README.md'
@@ -48,10 +51,14 @@ module.exports = {
       description: 'lint the entire project',
       script: 'eslint .'
     },
+    typescript: {
+      description: 'typescript check the entire project',
+      script: 'tsc'
+    },
     validate: {
       description:
         'This runs several scripts to make sure things look good before committing or on clean install',
-      default: concurrent.nps('lint', 'build.andTest')
+      default: concurrent.nps('lint', 'build.andTest', 'typescript')
     }
   },
   options: {
