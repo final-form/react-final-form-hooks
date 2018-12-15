@@ -6,6 +6,16 @@ export const all = fieldSubscriptionItems.reduce((result, key) => {
   return result
 }, {})
 
+const eventValue = event => {
+  if (!event.target) {
+    return event
+  } else if (['checkbox', 'radio'].includes(event.target.type)) {
+    return event.target.checked
+  }
+
+  return event.target.value
+}
+
 const useField = (name, form, subscription) => {
   const [state, setState] = useState({})
   useEffect(() => form.registerField(name, setState, subscription || all), [
@@ -19,8 +29,7 @@ const useField = (name, form, subscription) => {
       name,
       value: value || '',
       onBlur: () => state.blur(),
-      onChange: event =>
-        state.change(event.target ? event.target.value : event),
+      onChange: event => state.change(eventValue(event)),
       onFocus: () => state.focus()
     },
     meta
