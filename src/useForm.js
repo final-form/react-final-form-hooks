@@ -9,9 +9,19 @@ export const all = formSubscriptionItems.reduce((result, key) => {
 const useForm = ({ subscription, ...config }) => {
   const form = useRef(createForm(config))
   const [state, setState] = useState({})
-  useEffect(() => form.current.subscribe(setState, subscription || all), [
-    subscription
-  ])
+
+  let unsubscribe
+  useEffect(
+    () => {
+      if (form && form.current) {
+        unsubscribe = form.current.subscribe(setState, subscription || all)
+      }
+      return () => {
+        unsubscribe()
+      }
+    },
+    [subscription]
+  )
   const handleSubmit = useCallback(event => {
     if (event) {
       if (typeof event.preventDefault === 'function') {
