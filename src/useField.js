@@ -6,6 +6,9 @@ export const all = fieldSubscriptionItems.reduce((result, key) => {
   return result
 }, {})
 
+const subscriptionToInputs = subscription =>
+  fieldSubscriptionItems.map(key => Boolean(subscription[key]))
+
 const eventValue = event => {
   if (!event.target) {
     return event
@@ -16,7 +19,7 @@ const eventValue = event => {
   return event.target.value
 }
 
-const useField = (name, form, subscription) => {
+const useField = (name, form, subscription = all) => {
   const autoFocus = useRef(false)
   const [state, setState] = useState({})
   useEffect(
@@ -30,9 +33,9 @@ const useField = (name, form, subscription) => {
           }
           setState(newState)
         },
-        subscription || all
+        subscription
       ),
-    [name, subscription]
+    [name, ...subscriptionToInputs(subscription)]
   )
   let { blur, change, focus, value, ...meta } = state || {}
   delete meta.name // it's in input
