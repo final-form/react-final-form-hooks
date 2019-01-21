@@ -7,7 +7,15 @@ export const all = formSubscriptionItems.reduce((result, key) => {
 }, {})
 
 const useForm = ({ subscription, ...config }) => {
-  const form = useRef(createForm(config))
+  const form = useRef()
+  // https://reactjs.org/docs/hooks-faq.html#how-to-create-expensive-objects-lazily
+  const getForm = () => {
+    if (!form.current) {
+      form.current = createForm(config)
+    }
+
+    return form.current
+  }
   const [state, setState] = useState({})
   useEffect(() => form.current.subscribe(setState, subscription || all), [
     subscription
@@ -21,10 +29,10 @@ const useForm = ({ subscription, ...config }) => {
         event.stopPropagation()
       }
     }
-    return form.current.submit()
+    return getForm().submit()
   }, [])
 
-  return { ...state, form: form.current, handleSubmit }
+  return { ...state, form: getForm(), handleSubmit }
 }
 
 export default useForm
