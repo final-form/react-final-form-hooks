@@ -9,9 +9,8 @@ export const all = formSubscriptionItems.reduce((result, key) => {
 /**
  * Converts { active: true, data: false, ... } to `[true, false, false, ...]`.
  */
-function subscriptionToInputs(subscription) {
-  return formSubscriptionItems.map(key => Boolean(subscription[key]))
-}
+const subscriptionToInputs = subscription =>
+  formSubscriptionItems.map(key => Boolean(subscription[key]))
 
 const useFormState = (form, subscription = all) => {
   const [state, setState] = useState(() => form.getState())
