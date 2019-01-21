@@ -17,7 +17,7 @@ const useForm = ({ subscription, ...config }) => {
     return form.current
   }
   const [state, setState] = useState({})
-  useEffect(() => form.current.subscribe(setState, subscription || all), [
+  useEffect(() => getForm().subscribe(setState, subscription || all), [
     subscription
   ])
   const handleSubmit = useCallback(event => {
