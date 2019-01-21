@@ -1,10 +1,6 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
-import { createForm, formSubscriptionItems } from 'final-form'
-
-export const all = formSubscriptionItems.reduce((result, key) => {
-  result[key] = true
-  return result
-}, {})
+import { useCallback, useRef } from 'react'
+import { createForm } from 'final-form'
+import useFormState from './useFormState'
 
 const useForm = ({ subscription, ...config }) => {
   const form = useRef()
@@ -16,10 +12,8 @@ const useForm = ({ subscription, ...config }) => {
 
     return form.current
   }
-  const [state, setState] = useState({})
-  useEffect(() => getForm().subscribe(setState, subscription || all), [
-    subscription
-  ])
+  const state = useFormState(getForm(), subscription)
+
   const handleSubmit = useCallback(event => {
     if (event) {
       if (typeof event.preventDefault === 'function') {
