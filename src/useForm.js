@@ -13,7 +13,6 @@ const useForm = ({ subscription, ...config }) => {
     return form.current
   }
   const state = useFormState(getForm(), subscription)
-
   const handleSubmit = useCallback(event => {
     if (event) {
       if (typeof event.preventDefault === 'function') {
