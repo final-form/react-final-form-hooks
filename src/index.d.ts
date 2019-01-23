@@ -41,6 +41,10 @@ interface FormConfig extends Config {
 
 declare module 'react-final-form-hooks' {
   export function useForm(config: FormConfig): FormRenderProps
+  export function useFormState(
+    form: FormApi,
+    subscription?: FormSubscription
+  ): FormRenderProps
 
   export function useField(
     name: string,
