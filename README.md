@@ -15,7 +15,7 @@
 
 ✅ Opt-in subscriptions - only update on the state you need!
 
-✅ 💥 [**843 bytes gzipped**](https://bundlephobia.com/result?p=react-final-form-hooks) 💥
+✅ 💥 [**1023 bytes gzipped**](https://bundlephobia.com/result?p=react-final-form-hooks) 💥 (technically still under a kilobyte! 🤣)
 
 ---
 
@@ -60,14 +60,16 @@ const MyForm = () => {
       <div>
         <label>First Name</label>
         <input {...firstName.input} placeholder="First Name" />
-        {firstName.meta.touched &&
-          firstName.meta.error && <span>{firstName.meta.error}</span>}
+        {firstName.meta.touched && firstName.meta.error && (
+          <span>{firstName.meta.error}</span>
+        )}
       </div>
       <div>
         <label>Last Name</label>
         <input {...lastName.input} placeholder="Last Name" />
-        {lastName.meta.touched &&
-          lastName.meta.error && <span>{lastName.meta.error}</span>}
+        {lastName.meta.touched && lastName.meta.error && (
+          <span>{lastName.meta.error}</span>
+        )}
       </div>
       <button type="submit" disabled={pristine || submitting}>
         Submit
