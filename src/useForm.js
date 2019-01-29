@@ -1,27 +1,18 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
-import { createForm, formSubscriptionItems } from 'final-form'
-
-export const all = formSubscriptionItems.reduce((result, key) => {
-  result[key] = true
-  return result
-}, {})
+import { useCallback, useRef } from 'react'
+import { createForm } from 'final-form'
+import useFormState from './useFormState'
 
 const useForm = ({ subscription, ...config }) => {
-  const form = useRef(createForm(config))
-  const [state, setState] = useState({})
+  const form = useRef()
+  // https://reactjs.org/docs/hooks-faq.html#how-to-create-expensive-objects-lazily
+  const getForm = () => {
+    if (!form.current) {
+      form.current = createForm(config)
+    }
 
-  let unsubscribe
-  useEffect(
-    () => {
-      if (form && form.current) {
-        unsubscribe = form.current.subscribe(setState, subscription || all)
-      }
-      return () => {
-        unsubscribe()
-      }
-    },
-    [subscription]
-  )
+    return form.current
+  }
+  const state = useFormState(getForm(), subscription)
   const handleSubmit = useCallback(event => {
     if (event) {
       if (typeof event.preventDefault === 'function') {
@@ -31,10 +22,10 @@ const useForm = ({ subscription, ...config }) => {
         event.stopPropagation()
       }
     }
-    return form.current.submit()
+    return getForm().submit()
   }, [])
 
-  return { ...state, form: form.current, handleSubmit }
+  return { ...state, form: getForm(), handleSubmit }
 }
 
 export default useForm
