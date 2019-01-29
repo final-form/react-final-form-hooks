@@ -14,6 +14,8 @@ const eventValue = event => {
     return event
   } else if (['checkbox', 'radio'].includes(event.target.type)) {
     return event.target.checked
+  } else if (event.target.type === 'file') {
+    return event.target.files
   }
 
   return event.target.value
