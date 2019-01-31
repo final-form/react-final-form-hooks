@@ -16,6 +16,7 @@ export interface FormRenderProps extends FormState {
 
 interface FormConfig extends Config {
   subscription?: FormSubscription
+  initialValuesEqual?: (a: object, b: object) => boolean
 }
 
 type NonFunctionPropertyNames<T> = {
