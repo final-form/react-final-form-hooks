@@ -26,13 +26,13 @@ Need I say this? The React Hooks API is still very experimental and not recommen
 ## Installation
 
 ```bash
-npm install --save react-final-form-hooks final-form
+npm install --save react-final-form-hooks@next final-form
 ```
 
 or
 
 ```bash
-yarn add react-final-form-hooks final-form
+yarn add react-final-form-hooks@next final-form
 ```
 
 ## Getting Started
