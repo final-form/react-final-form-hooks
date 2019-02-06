@@ -15,13 +15,9 @@
 
 ✅ Opt-in subscriptions - only update on the state you need!
 
-✅ 💥 [**1023 bytes gzipped**](https://bundlephobia.com/result?p=react-final-form-hooks) 💥 (technically still under a kilobyte! 🤣)
+✅ 💥 [**1.22 kB gzipped**](https://bundlephobia.com/result?p=react-final-form-hooks) 💥
 
 ---
-
-## 👨‍🔬 EXPERIMENTAL 👩‍🔬
-
-Need I say this? The React Hooks API is still very experimental and not recommended for production code.
 
 ## Installation
 
