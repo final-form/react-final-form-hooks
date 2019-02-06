@@ -10,7 +10,7 @@ const subscriptionToInputs = subscription =>
   fieldSubscriptionItems.map(key => Boolean(subscription[key]))
 
 const eventValue = event => {
-  if (!event.target) {
+  if (!event || !event.target) {
     return event
   } else if (['checkbox', 'radio'].includes(event.target.type)) {
     return event.target.checked
