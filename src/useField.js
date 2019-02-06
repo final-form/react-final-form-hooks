@@ -42,7 +42,7 @@ const useField = (name, form, subscription = all) => {
   return {
     input: {
       name,
-      value: typeof value === "undefined" ? '' : value,
+      value: value === undefined ? '' : value,
       onBlur: () => state.blur(),
       onChange: event => state.change(eventValue(event)),
       onFocus: () => {
