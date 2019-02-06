@@ -61,7 +61,6 @@
     "jest": "^24.1.0",
     "lint-staged": "^8.1.3",
     "merge": ">=1.2.1",
-    "np": "^4.0.2",
     "nps": "^5.9.3",
     "nps-utils": "^1.7.0",
     "opencollective": "^1.0.3",
