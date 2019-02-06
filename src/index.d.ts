@@ -24,13 +24,13 @@ type NonFunctionPropertyNames<T> = {
 }[keyof T]
 type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>
 
-export interface FieldRenderProps {
+export interface FieldRenderProps<V = any> {
   input: {
     name: string
     onBlur: <T>(event?: React.FocusEvent<T>) => void
-    onChange: <T>(event: React.ChangeEvent<T> | any) => void
+    onChange: <T>(event: React.ChangeEvent<T> | V) => void
     onFocus: <T>(event?: React.FocusEvent<T>) => void
-    value: any
+    value: V
     checked?: boolean
   }
   meta: NonFunctionProperties<FieldState>
@@ -47,9 +47,9 @@ declare module 'react-final-form-hooks' {
     subscription?: FormSubscription
   ): FormRenderProps
 
-  export function useField(
+  export function useField<V = any>(
     name: string,
     form: FormApi,
     subscription?: FieldSubscription
-  ): FieldRenderProps
+  ): FieldRenderProps<V>
 }
