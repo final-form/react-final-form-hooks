@@ -44,12 +44,12 @@ const useForm = ({
         prevConfig.current.initialValues
       )
     ) {
-      form.initialize(config.initialValues)
+      form.current.initialize(config.initialValues)
     }
 
     configOptions.forEach(key => {
       if (key !== 'initialValues' && config[key] !== prevConfig.current[key]) {
-        form.setConfig(key, config[key])
+        form.current.setConfig(key, config[key])
       }
     })
 
