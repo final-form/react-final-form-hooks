@@ -1,9 +1,16 @@
-import { useCallback, useRef } from 'react'
-import { createForm } from 'final-form'
+import { useCallback, useRef, useEffect } from 'react'
+import { createForm, configOptions } from 'final-form'
 import useFormState from './useFormState'
+import shallowEqual from './internal/shallowEqual'
 
-const useForm = ({ subscription, ...config }) => {
+const useForm = ({
+  subscription,
+  initialValuesEqual = shallowEqual,
+  ...config
+}) => {
   const form = useRef()
+  const prevConfig = useRef(config)
+
   // https://reactjs.org/docs/hooks-faq.html#how-to-create-expensive-objects-lazily
   const getForm = () => {
     if (!form.current) {
@@ -24,6 +31,30 @@ const useForm = ({ subscription, ...config }) => {
     }
     return getForm().submit()
   }, [])
+
+  useEffect(() => {
+    if (config === prevConfig.current) {
+      return
+    }
+
+    if (
+      config.initialValues &&
+      !initialValuesEqual(
+        config.initialValues,
+        prevConfig.current.initialValues
+      )
+    ) {
+      form.initialize(config.initialValues)
+    }
+
+    configOptions.forEach(key => {
+      if (key !== 'initialValues' && config[key] !== prevConfig.current[key]) {
+        form.setConfig(key, config[key])
+      }
+    })
+
+    prevConfig.current = config
+  })
 
   return { ...state, form: getForm(), handleSubmit }
 }
