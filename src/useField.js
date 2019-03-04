@@ -35,7 +35,7 @@ const useField = (name, form, subscription = all) => {
         },
         subscription
       ),
-    [name, ...subscriptionToInputs(subscription)]
+    [name, form, ...subscriptionToInputs(subscription)]
   )
   let { blur, change, focus, value, ...meta } = state || {}
   delete meta.name // it's in input
