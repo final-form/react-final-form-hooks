@@ -19,7 +19,7 @@ const eventValue = event => {
   return event.target.value
 }
 
-const useField = (name, form, subscription = all) => {
+const useField = (name, form, validate, subscription = all) => {
   const autoFocus = useRef(false)
   const [state, setState] = useState({})
   useEffect(
@@ -33,7 +33,10 @@ const useField = (name, form, subscription = all) => {
           }
           setState(newState)
         },
-        subscription
+        subscription,
+        {
+          getValidator: () => validate
+        }
       ),
     [name, form, ...subscriptionToInputs(subscription)]
   )
