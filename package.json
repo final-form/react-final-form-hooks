@@ -54,6 +54,7 @@
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-react-hooks": "^1.6.0",
     "fast-deep-equal": "^2.0.1",
     "final-form": "^4.11.1",
     "hoek": ">=4.2.1",
