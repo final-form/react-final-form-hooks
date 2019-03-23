@@ -22,6 +22,11 @@ const eventValue = event => {
 const useField = (name, form, validate, subscription = all) => {
   const autoFocus = useRef(false)
   const [state, setState] = useState({})
+  const options = validate
+    ? {
+        getValidator: () => validate
+      }
+    : undefined
   useEffect(
     () =>
       form.registerField(
@@ -34,11 +39,9 @@ const useField = (name, form, validate, subscription = all) => {
           setState(newState)
         },
         subscription,
-        {
-          getValidator: () => validate
-        }
+        options
       ),
-    [name, form, ...subscriptionToInputs(subscription)]
+    [name, form, validate, ...subscriptionToInputs(subscription)]
   )
   let { blur, change, focus, value, ...meta } = state || {}
   delete meta.name // it's in input
