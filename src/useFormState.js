@@ -15,10 +15,11 @@ const subscriptionToInputs = subscription =>
 const useFormState = (form, subscription = all) => {
   const [state, setState] = useState(() => form.getState())
 
-  useEffect(() => form.subscribe(setState, subscription), [
-    form,
-    ...subscriptionToInputs(subscription)
-  ])
+  useEffect(() => {
+    const unsubscribe = form.subscribe(setState, subscription)
+
+    return () => unsubscribe()
+  }, [form, ...subscriptionToInputs(subscription)])
 
   return state
 }
