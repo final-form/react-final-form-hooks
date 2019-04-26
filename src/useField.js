@@ -22,21 +22,21 @@ const eventValue = event => {
 const useField = (name, form, subscription = all) => {
   const autoFocus = useRef(false)
   const [state, setState] = useState({})
-  useEffect(
-    () =>
-      form.registerField(
-        name,
-        newState => {
-          if (autoFocus.current) {
-            autoFocus.current = false
-            setTimeout(() => newState.focus())
-          }
-          setState(newState)
-        },
-        subscription
-      ),
-    [name, form, ...subscriptionToInputs(subscription)]
-  )
+  useEffect(() => {
+    const unregisterField = form.registerField(
+      name,
+      newState => {
+        if (autoFocus.current) {
+          autoFocus.current = false
+          setTimeout(() => newState.focus())
+        }
+        setState(newState)
+      },
+      subscription
+    )
+
+    return () => unregisterField()
+  }, [name, form, ...subscriptionToInputs(subscription)])
   let { blur, change, focus, value, ...meta } = state || {}
   delete meta.name // it's in input
   return {
