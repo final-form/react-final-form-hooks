@@ -6,6 +6,10 @@ const rimraf = npsUtils.rimraf
 
 module.exports = {
   scripts: {
+    test: {
+      default: 'jest --coverage',
+      watch: 'jest --coverage --watch'
+    },
     size: {
       description: 'check the size of the bundle',
       script: 'bundlesize'
