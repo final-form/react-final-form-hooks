@@ -2,14 +2,18 @@ import { renderHook, cleanup, act } from 'react-hooks-testing-library'
 import useFormState, { all } from './useFormState'
 
 describe('useFormState()', () => {
-  let form, formState, setFormState, subscription
+  let form, formState, setFormState, subscription, unsubscribe
 
   beforeEach(() => {
-    subscription = { value: true }
     formState = { foo: 'foo' }
+    subscription = { value: true }
+    unsubscribe = jest.fn()
     form = {
       getState: jest.fn(() => formState),
-      subscribe: jest.fn((setState, subscription) => (setFormState = setState))
+      subscribe: jest.fn((setState, subscription) => {
+        setFormState = setState
+        return unsubscribe
+      })
     }
   })
   afterEach(cleanup)

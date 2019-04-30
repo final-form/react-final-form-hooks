@@ -2,18 +2,19 @@ import { renderHook, cleanup } from 'react-hooks-testing-library'
 import useField, { all } from './useField'
 
 describe('useField()', () => {
-  let form, name, subscription
+  let form, name, subscription, unregisterField
 
   beforeEach(() => {
     name = 'foo'
     subscription = { value: true }
+    unregisterField = jest.fn()
   })
   afterEach(cleanup)
 
   describe("form hook parameter's registerField", () => {
     beforeEach(() => {
       form = {
-        registerField: jest.fn()
+        registerField: jest.fn(() => unregisterField)
       }
     })
 
@@ -55,9 +56,10 @@ describe('useField()', () => {
       focus = jest.fn()
 
       form = {
-        registerField: jest.fn((name, callback, subscription) =>
+        registerField: jest.fn((name, callback, subscription) => {
           callback({ blur, change, focus, value })
-        )
+          return unregisterField
+        })
       }
     })
 
@@ -139,9 +141,10 @@ describe('useField()', () => {
       meta = { name: 'foo', bar: 'bar', biz: 'biz' }
 
       form = {
-        registerField: jest.fn((name, callback, subscription) =>
+        registerField: jest.fn((name, callback, subscription) => {
           callback({ ...meta })
-        )
+          return unregisterField
+        })
       }
     })
 
