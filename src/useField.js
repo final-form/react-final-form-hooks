@@ -12,7 +12,7 @@ const subscriptionToInputs = subscription =>
 const eventValue = event => {
   if (!event || !event.target) {
     return event
-  } else if (['checkbox', 'radio'].includes(event.target.type)) {
+  } else if (event.target.type === 'checkbox') {
     return event.target.checked
   }
 
