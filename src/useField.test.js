@@ -109,7 +109,7 @@ describe('useField()', () => {
       })
 
       describe('when event has a checked prop', () => {
-        const event = { target: { type: 'radio', checked: false } }
+        const event = { target: { type: 'checkbox', checked: false } }
 
         it('calls provided handler with value', () => {
           const { onChange } = setupHook()
