@@ -37,12 +37,8 @@ export interface FieldRenderProps<V = any> {
   meta: NonFunctionProperties<FieldState>
 }
 
-interface FormConfig extends Config {
-  subscription?: FormSubscription
-}
-
 declare module 'react-final-form-hooks' {
-  export function useForm(config: FormConfig): FormRenderProps
+  export function useForm<C = FormConfig>(config: C): FormRenderProps
   export function useFormState(
     form: FormApi,
     subscription?: FormSubscription

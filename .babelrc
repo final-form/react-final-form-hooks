@@ -11,11 +11,7 @@
     ],
     "@babel/preset-react"
   ],
-  "env": {
-    "test": {
-      "plugins": ["@babel/plugin-transform-react-jsx-source", "istanbul"]
-    }
-  },
+
   "plugins": [
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-syntax-import-meta",
