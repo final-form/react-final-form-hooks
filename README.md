@@ -15,7 +15,7 @@
 
 ✅ Opt-in subscriptions - only update on the state you need!
 
-✅ 💥 [**1.22 kB gzipped**](https://bundlephobia.com/result?p=react-final-form-hooks) 💥
+✅ 💥 [**1.2 kB gzipped**](https://bundlephobia.com/result?p=react-final-form-hooks) 💥
 
 ---
 

@@ -5,6 +5,8 @@ import { renderHook, cleanup } from 'react-hooks-testing-library'
 import useField, { all } from './useField'
 import useForm from './useForm'
 
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
 describe('useField()', () => {
   let form, name, subscription, container
 
@@ -166,6 +168,36 @@ describe('useField()', () => {
       delete meta.name
 
       expect(returnMeta).toEqual(meta)
+    })
+  })
+
+  describe('autofocus', () => {
+    it('set focused when autoFocus is used on input', async () => {
+      const onSubmit = jest.fn()
+      const focusState = jest.fn()
+      const FormComponent = () => {
+        const { form, handleSubmit } = useForm({ onSubmit })
+        const firstName = useField('firstName', form, undefined, {
+          active: true
+        })
+        focusState(firstName.meta)
+        return (
+          <form onSubmit={handleSubmit}>
+            <label>First Name</label>
+            <input {...firstName.input} placeholder="First Name" autoFocus />
+            <button type="submit">Submit</button>
+          </form>
+        )
+      }
+      act(async () => {
+        ReactDOM.render(<FormComponent />, container)
+      })
+
+      await sleep(1)
+
+      expect(onSubmit).not.toHaveBeenCalled()
+      expect(focusState).toHaveBeenCalledTimes(4)
+      expect(focusState).toHaveBeenLastCalledWith({ active: true })
     })
   })
 

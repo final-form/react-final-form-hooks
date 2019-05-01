@@ -22,11 +22,8 @@ const eventValue = event => {
 const useField = (name, form, validate, subscription = all) => {
   const autoFocus = useRef(false)
   const [state, setState] = useState({})
-  const options = validate
-    ? {
-        getValidator: () => validate
-      }
-    : undefined
+
+  const deps = subscriptionToInputs(subscription)
   useEffect(
     () =>
       form.registerField(
@@ -39,12 +36,16 @@ const useField = (name, form, validate, subscription = all) => {
           setState(newState)
         },
         subscription,
-        options
+        validate
+          ? {
+              getValidator: () => validate
+            }
+          : undefined
       ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [name, form, validate, ...subscriptionToInputs(subscription)]
+    [name, form, validate, ...deps]
   )
-  let { blur, change, focus, value, ...meta } = state || {}
+  let { blur, change, focus, value, ...meta } = state
   delete meta.name // it's in input
   return {
     input: {
