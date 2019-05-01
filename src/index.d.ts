@@ -4,7 +4,8 @@ import {
   FormState,
   FormSubscription,
   FieldSubscription,
-  FieldState
+  FieldState,
+  FieldValidator
 } from 'final-form'
 
 export interface FormRenderProps extends FormState {
@@ -46,6 +47,7 @@ declare module 'react-final-form-hooks' {
   export function useField<V = any>(
     name: string,
     form: FormApi,
+    validate?: FieldValidator,
     subscription?: FieldSubscription
   ): FieldRenderProps<V>
 }
