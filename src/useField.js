@@ -41,6 +41,7 @@ const useField = (name, form, validate, subscription = all) => {
         subscription,
         options
       ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [name, form, validate, ...subscriptionToInputs(subscription)]
   )
   let { blur, change, focus, value, ...meta } = state || {}

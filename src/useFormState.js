@@ -15,10 +15,9 @@ const subscriptionToInputs = subscription =>
 const useFormState = (form, subscription = all) => {
   const [state, setState] = useState(() => form.getState())
 
-  useEffect(() => form.subscribe(setState, subscription), [
-    form,
-    ...subscriptionToInputs(subscription)
-  ])
+  const deps = subscriptionToInputs(subscription)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => form.subscribe(setState, subscription), [form, ...deps])
 
   return state
 }

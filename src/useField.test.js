@@ -12,6 +12,7 @@ describe('useField()', () => {
     name = 'foo'
     subscription = { value: true }
     container = document.createElement('div')
+    document.body.appendChild(container)
   })
   afterEach(() => {
     document.body.removeChild(container)
@@ -27,12 +28,13 @@ describe('useField()', () => {
     })
 
     it('is called with correct params', () => {
-      renderHook(() => useField(name, form, subscription))
+      renderHook(() => useField(name, form, undefined, subscription))
 
       expect(form.registerField).toHaveBeenCalledWith(
         name,
         expect.any(Function),
-        subscription
+        subscription,
+        undefined
       )
     })
 
@@ -42,7 +44,8 @@ describe('useField()', () => {
       expect(form.registerField).toHaveBeenCalledWith(
         name,
         expect.any(Function),
-        all
+        all,
+        undefined
       )
     })
   })

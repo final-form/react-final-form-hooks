@@ -22,17 +22,20 @@ const useForm = ({
   const form = useMemoOnce(() => createForm(config))
   const prevConfig = useRef(config)
   const state = useFormState(form, subscription)
-  const handleSubmit = useCallback(event => {
-    if (event) {
-      if (typeof event.preventDefault === 'function') {
-        event.preventDefault()
+  const handleSubmit = useCallback(
+    event => {
+      if (event) {
+        if (typeof event.preventDefault === 'function') {
+          event.preventDefault()
+        }
+        if (typeof event.stopPropagation === 'function') {
+          event.stopPropagation()
+        }
       }
-      if (typeof event.stopPropagation === 'function') {
-        event.stopPropagation()
-      }
-    }
-    return form.submit()
-  }, [])
+      return form.submit()
+    },
+    [form]
+  )
 
   useEffect(() => {
     if (config === prevConfig.current) {

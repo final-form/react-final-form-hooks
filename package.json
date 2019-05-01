@@ -12,12 +12,11 @@
   ],
   "scripts": {
     "start": "nps",
-    "test": "nps test",
     "doctoc": "doctoc README.md && doctoc docs/faq.md && prettier --write README.md && prettier --write docs/faq.md",
     "precommit": "lint-staged && npm start validate",
     "prepublish": "npm start validate",
     "postinstall": "node ./scripts/postinstall.js || exit 0",
-    "test": "NODE_ENV=test jest -i --detectOpenHandles"
+    "test": "NODE_ENV=test nps test"
   },
   "author": "Erik Rasmussen <rasmussenerik@gmail.com> (http://github.com/erikras)",
   "license": "MIT",

@@ -102,11 +102,11 @@ Shows how to create fields and attach them to `<input/>` elements.
 
 The following can be imported from `react-final-form-hooks`.
 
-### `useField`
+### `useField(name: string, form: Form, validate?: (value:any) => any, subscription: Object)`
 
 Returns an object similar to [`FieldRenderProps`](https://github.com/final-form/react-final-form#fieldrenderprops).
 
-### `useForm`
+### `useForm(onSubmit: (values:Object) => Promise | void, validate: (values:Object) => Object)`
 
 Returns an object similar to [`FormRenderProps`](https://github.com/final-form/react-final-form#formrenderprops).
 

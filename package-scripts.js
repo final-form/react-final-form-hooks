@@ -7,7 +7,7 @@ const rimraf = npsUtils.rimraf
 module.exports = {
   scripts: {
     test: {
-      default: 'jest --coverage',
+      default: 'jest --coverage --detectOpenHandles',
       watch: 'jest --coverage --watch'
     },
     size: {
@@ -62,7 +62,7 @@ module.exports = {
     validate: {
       description:
         'This runs several scripts to make sure things look good before committing or on clean install',
-      default: concurrent.nps('lint', 'build.andTest', 'typescript')
+      default: concurrent.nps('lint', 'build.andTest', 'typescript', 'test')
     }
   },
   options: {
