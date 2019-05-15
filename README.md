@@ -39,7 +39,7 @@ yarn add react-final-form-hooks final-form
 
 If performance is your goal, you are recommended to use [🏁 React Final Form](https://github.com/final-form/react-final-form). Also, that library does many other things for you, like managing checkbox and radio buttons properly. RFFHooks leaves all of that work to you. By default, 🏁 React Final Form Hooks subscribes to _all_ changes, but if you want to fine tune your form, you may specify only the form state that you care about for rendering your gorgeous UI.
 
-If you like the the developer experience of using React hooks but need the full featureset of 🏁React Final Form, then help is on the way: starting with v5.0, 🏁 React Final Form will export `useField` and `useFormState` hooks that can simplify field handling. These new hooks don't cover the entire surface area of 🏁 React Final Form because some features still require render props, but they will provide a more flexible and feature-rich solution compared to the bare-bones approach of `react-final-form-hooks`. To track this work before V5 is released, you can follow the [work-in-progress PR](https://github.com/final-form/react-final-form/pull/467).
+### [What's the difference between `react-final-form-hooks` and the hooks introduced in `react-final-form v5`?](#whats-the-difference-between-react-final-form-hooks-and-the-hooks-introduced-in-react-final-form-v5)
 
 Here's what it looks like in your code:
 
@@ -83,6 +83,7 @@ const MyForm = () => {
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+- [What's the difference between `react-final-form-hooks` and the hooks introduced in `react-final-form v5`?](#whats-the-difference-between-react-final-form-hooks-and-the-hooks-introduced-in-react-final-form-v5)
 - [Examples](#examples)
   - [Simple Example](#simple-example)
 - [API](#api)
@@ -99,6 +100,19 @@ const MyForm = () => {
 - [Sponsors](#sponsors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## What's the difference between `react-final-form-hooks` and the hooks introduced in `react-final-form v5`?
+
+Great question. The TL;DR is this:
+
+- `react-final-form-hooks` is a lightweight, simple solution for quickly getting a form up and running _in a single render function_, but allows for no performance optimization.
+- `react-final-form v5` is a more robust, battle-tested solution that involves creating more components and structure around your form.
+
+`react-final-form-hooks` does not put the `form` instance into the React context, but rather forces you to pass the `form` instance to `useField` so that the field can register itself with the form. This allows you to create your entire form in a single functional component, like the `MyForm` example above. It will also, by necessity, rerender your entire form on every value change.
+
+`react-final-form v5` requires that you wrap your entire form in a `<Form>` component that provides the `form` instance via context to its descendants. This means that you cannot use `useField` in the same function that is rendering your `<Form>`, because `useField` must be inside the `<Form>`.
+
+**Conclusion**: If your app has a couple of small (< 20 inputs) forms where you aren't doing anything fancy with reusable custom input components, `react-final-form-hooks` might be all you need. But if your app is bigger and more sophisticated, or you need to optimize for performance, you should probably use `react-final-form`.
 
 ## Examples
 
