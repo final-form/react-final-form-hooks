@@ -39,8 +39,6 @@ yarn add react-final-form-hooks final-form
 
 If performance is your goal, you are recommended to use [🏁 React Final Form](https://github.com/final-form/react-final-form). Also, that library does many other things for you, like managing checkbox and radio buttons properly. RFFHooks leaves all of that work to you. By default, 🏁 React Final Form Hooks subscribes to _all_ changes, but if you want to fine tune your form, you may specify only the form state that you care about for rendering your gorgeous UI.
 
-### [What's the difference between `react-final-form-hooks` and the hooks introduced in `react-final-form v5`?](#whats-the-difference-between-react-final-form-hooks-and-the-hooks-introduced-in-react-final-form-v5)
-
 Here's what it looks like in your code:
 
 ```jsx
