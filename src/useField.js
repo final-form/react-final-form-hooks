@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
 import { fieldSubscriptionItems } from 'final-form'
+import { useEffect, useRef, useState } from 'react'
 
 export const all = fieldSubscriptionItems.reduce((result, key) => {
   result[key] = true
@@ -21,7 +21,10 @@ const eventValue = event => {
 
 const useField = (name, form, validate, subscription = all) => {
   const autoFocus = useRef(false)
+  const validatorRef = useRef(undefined)
   const [state, setState] = useState({})
+
+  validatorRef.current = validate
 
   const deps = subscriptionToInputs(subscription)
   useEffect(
@@ -38,12 +41,12 @@ const useField = (name, form, validate, subscription = all) => {
         subscription,
         validate
           ? {
-              getValidator: () => validate
+              getValidator: () => validatorRef.current
             }
           : undefined
       ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [name, form, validate, ...deps]
+    [name, form, ...deps]
   )
   let { blur, change, focus, value, ...meta } = state
   delete meta.name // it's in input
