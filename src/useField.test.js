@@ -221,7 +221,7 @@ describe('useField()', () => {
           onSubmit,
           validate
         })
-        const firstName = useField(FIELD_NAME, form, required)
+        const firstName = useField(FIELD_NAME, form, value => required(value))
 
         return (
           <form onSubmit={handleSubmit}>
