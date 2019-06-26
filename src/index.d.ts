@@ -8,8 +8,8 @@ import {
   FieldValidator
 } from 'final-form'
 
-export interface FormRenderProps extends FormState<object> {
-  form: FormApi
+export interface FormRenderProps<S> extends FormState<S> {
+  form: FormApi<S>
   handleSubmit: (
     event?: React.SyntheticEvent<HTMLFormElement>
   ) => Promise<object | undefined> | undefined
@@ -25,7 +25,7 @@ type NonFunctionPropertyNames<T> = {
 }[keyof T]
 type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>
 
-export interface FieldRenderProps<V = any> {
+export interface FieldRenderProps<V = any, T = string> {
   input: {
     name: string
     onBlur: <T>(event?: React.FocusEvent<T>) => void
@@ -34,20 +34,20 @@ export interface FieldRenderProps<V = any> {
     value: V
     checked?: boolean
   }
-  meta: NonFunctionProperties<FieldState<object>>
+  meta: NonFunctionProperties<FieldState<T>>
 }
 
 declare module 'react-final-form-hooks' {
-  export function useForm<C = FormConfig>(config: C): FormRenderProps
-  export function useFormState(
-    form: FormApi,
+  export function useForm<C = FormConfig, S = object>(config: C): FormRenderProps<S>
+  export function useFormState<S = object>(
+    form: FormApi<S>,
     subscription?: FormSubscription
-  ): FormRenderProps
+  ): FormRenderProps<S>
 
-  export function useField<V = any>(
+  export function useField<V = any, S = object>(
     name: string,
-    form: FormApi,
-    validate?: FieldValidator<string>,
+    form: FormApi<S>,
+    validate?: FieldValidator<V>,
     subscription?: FieldSubscription
   ): FieldRenderProps<V>
 }
