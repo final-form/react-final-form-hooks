@@ -8,7 +8,7 @@ import {
   FieldValidator
 } from 'final-form'
 
-export interface FormRenderProps extends FormState {
+export interface FormRenderProps extends FormState<object> {
   form: FormApi
   handleSubmit: (
     event?: React.SyntheticEvent<HTMLFormElement>
@@ -34,7 +34,7 @@ export interface FieldRenderProps<V = any> {
     value: V
     checked?: boolean
   }
-  meta: NonFunctionProperties<FieldState>
+  meta: NonFunctionProperties<FieldState<object>>
 }
 
 declare module 'react-final-form-hooks' {
@@ -47,7 +47,7 @@ declare module 'react-final-form-hooks' {
   export function useField<V = any>(
     name: string,
     form: FormApi,
-    validate?: FieldValidator,
+    validate?: FieldValidator<string>,
     subscription?: FieldSubscription
   ): FieldRenderProps<V>
 }
