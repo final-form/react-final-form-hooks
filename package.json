@@ -1,6 +1,6 @@
 {
   "name": "react-final-form-hooks",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "React Hooks to bind to 🏁 Final Form's high performance subscription-based form state management engine",
   "main": "dist/react-final-form-hooks.cjs.js",
   "jsnext:main": "dist/react-final-form-hooks.es.js",
