@@ -113,7 +113,5 @@
     "type": "opencollective",
     "url": "https://opencollective.com/final-form"
   },
-  "dependencies": {
-    "np": "^5.0.1"
-  }
+  "dependencies": {}
 }
