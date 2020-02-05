@@ -1,5 +1,5 @@
 import { fieldSubscriptionItems } from 'final-form'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react'
 
 export const all = fieldSubscriptionItems.reduce((result, key) => {
   result[key] = true
@@ -50,22 +50,26 @@ const useField = (name, form, validate, subscription = all) => {
   )
   let { blur, change, focus, value, ...meta } = state
   delete meta.name // it's in input
-  return {
-    input: {
+  const onBlur = useCallback(() => blur(), [blur])
+  const onChange = useCallback(event => change(eventValue(event)), [change])
+  const onFocus = useCallback(() => {
+    if (focus) {
+      focus()
+    } else {
+      autoFocus.current = true
+    }
+  }, [focus])
+  const input = useMemo(
+    () => ({
       name,
-      value: value === undefined ? '' : value,
-      onBlur: () => state.blur(),
-      onChange: event => state.change(eventValue(event)),
-      onFocus: () => {
-        if (state.focus) {
-          state.focus()
-        } else {
-          autoFocus.current = true
-        }
-      }
-    },
-    meta
-  }
+      onBlur,
+      onChange,
+      onFocus,
+      value: value === undefined ? '' : value
+    }),
+    [name, onBlur, onChange, onFocus, value]
+  )
+  return { input, meta }
 }
 
 export default useField
